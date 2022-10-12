@@ -50,13 +50,19 @@ contract clothingThriftstore {
 
     mapping(uint256 => Thriftstore) private thriftstores;
 
+    // keeps track of thrift stores that exist
     mapping(uint256 => bool) private _exists;
 
+    // checks if thrift store's index is a valid one
     modifier exists(uint256 _index) {
         require(_exists[_index], "Query of nonexistent thrift store");
         _;
     }
 
+    /**
+        * @dev allow users to add a thrift store to the marketplace
+        * @notice Input data needs to contain only valid/non-empty values
+     */
     function addThriftstore(
         string calldata _brand,
         string calldata _image,
@@ -100,6 +106,7 @@ contract clothingThriftstore {
     function getThriftstore(uint256 _index)
         public
         view
+        exists(_index)
         returns (
             address payable,
             string memory,
@@ -124,7 +131,7 @@ contract clothingThriftstore {
         );
     }
 
-    //Function to delete thriftstore brand
+    /// @dev Function to delete thriftstore brand
     function deleteThriftstore(uint256 _index) external exists(_index) {
         require(
             msg.sender == thriftstores[_index].owner,
@@ -137,7 +144,7 @@ contract clothingThriftstore {
         thriftstoreLength = newThriftStoreLength;
     }
 
-    // buy a product from our contract
+    /// @dev buy a product from a thrift store
     function buyThriftstore(uint256 _index) public payable exists(_index) {
         Thriftstore storage currentThriftStore = thriftstores[_index];
         require(
