@@ -1,0 +1,13 @@
+.carousel-section {
+  height: 100vh;
+  overflow: hidden;
+  /* display: none; */
+}
+.carousel-section .carousel {
+  overflow: hidden;
+  min-height: 100vh;
+  /* background-color: red; */
+}
+.carousel-section .carousel .carousel-item .carousel-item img {
+  display: none;
+}

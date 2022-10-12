@@ -1,0 +1,158 @@
+[ 
+ { 
+  "anonymous": false, 
+  "inputs": [ 
+   { 
+    "indexed": false, 
+    "internalType": "string", 
+    "name": "brand", 
+    "type": "string" 
+   }, 
+   { 
+    "indexed": false, 
+    "internalType": "address", 
+    "name": "_seller", 
+    "type": "address" 
+   }, 
+   { 
+    "indexed": false, 
+    "internalType": "uint256", 
+    "name": "_price", 
+    "type": "uint256" 
+   } 
+  ], 
+  "name": "newThriftstore", 
+  "type": "event" 
+ }, 
+ { 
+  "inputs": [ 
+   { 
+    "internalType": "string", 
+    "name": "_brand", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "_image", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "_color", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "_category", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "uint256", 
+    "name": "_size", 
+    "type": "uint256" 
+   }, 
+   { 
+    "internalType": "uint256", 
+    "name": "_price", 
+    "type": "uint256" 
+   } 
+  ], 
+  "name": "addThriftstore", 
+  "outputs": [], 
+  "stateMutability": "nonpayable", 
+  "type": "function" 
+ }, 
+ { 
+  "inputs": [ 
+   { 
+    "internalType": "uint256", 
+    "name": "_index", 
+    "type": "uint256" 
+   } 
+  ], 
+  "name": "buyThriftstore", 
+  "outputs": [], 
+  "stateMutability": "payable", 
+  "type": "function" 
+ }, 
+ { 
+  "inputs": [ 
+   { 
+    "internalType": "uint256", 
+    "name": "_index", 
+    "type": "uint256" 
+   } 
+  ], 
+  "name": "deleteThriftstore", 
+  "outputs": [], 
+  "stateMutability": "nonpayable", 
+  "type": "function" 
+ }, 
+ { 
+  "inputs": [ 
+   { 
+    "internalType": "uint256", 
+    "name": "_index", 
+    "type": "uint256" 
+   } 
+  ], 
+  "name": "getThriftstore", 
+  "outputs": [ 
+   { 
+    "internalType": "address payable", 
+    "name": "", 
+    "type": "address" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "string", 
+    "name": "", 
+    "type": "string" 
+   }, 
+   { 
+    "internalType": "uint256", 
+    "name": "", 
+    "type": "uint256" 
+   }, 
+   { 
+    "internalType": "uint256", 
+    "name": "", 
+    "type": "uint256" 
+   }, 
+   { 
+    "internalType": "uint256", 
+    "name": "", 
+    "type": "uint256" 
+   } 
+  ], 
+  "stateMutability": "view", 
+  "type": "function" 
+ }, 
+ { 
+  "inputs": [], 
+  "name": "getThriftstoreLength", 
+  "outputs": [ 
+   { 
+    "internalType": "uint256", 
+    "name": "", 
+    "type": "uint256" 
+   } 
+  ], 
+  "stateMutability": "view", 
+  "type": "function" 
+ } 
+]
