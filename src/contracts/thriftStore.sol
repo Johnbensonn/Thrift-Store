@@ -37,6 +37,21 @@ contract clothingThriftstore {
  
     mapping(uint => Thriftstore) internal thriftstores; 
  
+    modifier onlyOwner(uint _index){
+        require(msg.sender == thriftstores[_index].owner, "not Owner");
+        _;          
+    }
+
+    modifier validInput(uint _input){
+        require(_input > 0, "not valid input");
+        _;
+    }
+
+    modifier validString(string memory _input){
+        require(bytes(_input).length > 0, "not valid input");
+        _;
+    }
+
     function addThriftstore(  
         string memory _brand, 
         string memory _image, 
@@ -44,10 +59,10 @@ contract clothingThriftstore {
         string memory _category, 
         uint _size, 
         uint _price 
-    ) public { 
-        // 0: is available, 
-        uint _sold = 0; 
- 
+    ) public 
+      validInput(_size) validInput(_price)
+      validString(_brand) validString(_color){  
+
         thriftstores[thriftstoreLength] = Thriftstore( 
             payable(msg.sender), 
             _brand, 
@@ -56,7 +71,7 @@ contract clothingThriftstore {
             _category, 
             _size, 
             _price, 
-            _sold 
+            0 
         ); 
  
         // increase whenever we have a new brand added 
@@ -65,6 +80,31 @@ contract clothingThriftstore {
         // emit event to update UI 
         emit newThriftstore(_brand, msg.sender, _price); 
     } 
+
+    // buy a product from our contract 
+    function buyThriftstore(uint _index) public payable {
+        require(msg.sender != thriftstores[_index].owner, "owner cannot buy") ;
+        require( 
+            IERC20Token(cUsdTokenAddress).transferFrom( 
+                msg.sender, 
+                thriftstores[_index].owner, 
+                thriftstores[_index].price 
+            ), 
+            "Transfer failed" 
+        ); 
+        thriftstores[_index].sold++; 
+    } 
+ 
+ //Function to delete thriftstore brand 
+    function deleteThriftstore(uint _index) external onlyOwner(_index){ 
+        thriftstores[_index] = thriftstores[thriftstoreLength - 1]; 
+        delete thriftstores[thriftstoreLength - 1]; 
+        thriftstoreLength--;  
+   }
+
+   function changePrice(uint _index, uint _price) external onlyOwner(_index) validInput(_price){
+        thriftstores[_index].price = _price;
+   }
  
     function getThriftstoreLength() public view returns (uint) { 
         return thriftstoreLength; 
@@ -92,28 +132,5 @@ contract clothingThriftstore {
             thriftstore.sold 
         ); 
     } 
- 
- //Function to delete thriftstore brand 
-    function deleteThriftstore(uint _index) external { 
-         require(msg.sender == thriftstores[_index].owner, "Only the owner can delete brand");          
-            thriftstores[_index] = thriftstores[thriftstoreLength - 1]; 
-            delete thriftstores[thriftstoreLength - 1]; 
-            thriftstoreLength--;  
-  } 
- 
- 
-    // buy a product from our contract 
-    function buyThriftstore(uint _index) public payable { 
-        require( 
-            IERC20Token(cUsdTokenAddress).transferFrom( 
-                msg.sender, 
-                thriftstores[_index].owner, 
-                thriftstores[_index].price 
-            ), 
-            "Transfer failed" 
-        ); 
- 
-        thriftstores[_index].sold++; 
-    } 
- 
+
 }
